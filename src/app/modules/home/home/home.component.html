@@ -1,0 +1,33 @@
+<div>
+  <span style="padding-left: 1%"><b>Seleccionar imagen: </b><br></span>
+  <label class="image-upload-container btn btn-bwm">
+    <input #imageInput type="file" accept="image/*" (change)="processFile(imageInput)">
+  </label>
+  <div *ngIf="predictedImage.prediction != undefined" style="padding-left: 1%">
+    Predicción: <b>{{predictedImage.prediction ? "Sucia" : "Limpia"}}</b>
+  </div>
+</div>
+
+<div *ngIf="predictedImage.heatmap" style="text-align: center; display: block;">
+  <!-- Usar 550px o 32% -->
+  <img [src]="imagePath" height="550px" width="550px" style="padding-right: 10px">
+  <img [src]="predictedImage.safeImg" height="550px" width="550px">
+</div>
+<!-- <div *ngIf="predictedImage.heatmap" style="text-align: center; display: block;">
+Usar 550px o 32%
+<div class="col-6">
+  <div class="row">
+    Hola
+  </div>
+  <div class="row">
+    <img [src]="imagePath" height="550px" width="550px" style="padding-right: 10px">
+  </div>
+</div>
+<div class="col-6">
+  <div class="row">
+    Hola
+  </div>
+  <div class="row"></div>
+  <img [src]="predictedImage.safeImg" height="550px" width="550px">
+</div>
+</div> -->

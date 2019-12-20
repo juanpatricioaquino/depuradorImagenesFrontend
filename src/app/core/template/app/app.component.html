@@ -1,0 +1,125 @@
+<div class="wrapper">
+  <nav class="navbar navbar-expand navbar-dark bg-primary fixed-top" id="toolbar">
+    <a class="navbar-brand">
+      <img src="assets/images/logo_hi_blanco.png" height="30" class="d-md-inline-block align-top ml-1" alt="" />
+    </a>
+    <!-- <div class="collapse navbar-collapse" id="navbarsDefault">
+      <ul class="navbar-nav">
+        <li class="nav-item" *ngIf="tipoMenuApp === tipoMenu.sidebar || tipoMenuApp === tipoMenu.sidebarMini">
+          <button class="btn btn-outline-light" id="sidebarCollapse" [routerLink]="'/'"
+            [attr.aria-expanded]="isSidebarToggled" aria-label="Colapsar Sidebar">
+            <i class="mdi mdi-home"></i>
+          </button>
+        </li>
+      </ul> -->
+    <!-- <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown" ngbDropdown placement="bottom-right">
+          <a class="nav-link dropdown-toggle text-white" id="informacion-usuario" ngbDropdownToggle>
+            <span class="d-none d-md-inline"> {{ nombreCompletoUsuario }}</span>
+            <img *ngIf="imagenUsuario" [src]="imagenUsuario" height="30" class="align-self-center ml-1 rounded-circle"
+              alt="" />
+            <i *ngIf="!imagenUsuario" class="align-self-center mdi mdi-account-circle"></i>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="informacion-usuario" ngbDropdownMenu>
+            <a class="dropdown-item" [routerLink]="'/logout'">Cerrar Sesi&oacute;n</a>
+          </div>
+        </li>
+      </ul> -->
+    <!-- </div> -->
+  </nav>
+
+  <!-- Sidebar -->
+  <!-- <nav id="sidebar" class="bg-light sidebarScroll" [class.toggled]="isSidebarToggled"
+    [class.sidebar-mini]="tipoMenuApp === tipoMenu.sidebarMini"
+   *ngIf="tipoMenuApp === tipoMenu.sidebar || tipoMenuApp === tipoMenu.sidebarMini">
+    <ul class="list-unstyled components bg-light">
+      <ng-container *ngFor="let elementoMenu of menus">
+        <ng-container *ngTemplateOutlet="
+            tieneSubElementos(elementoMenu) ? collapseSidebar : elementoSidebar;
+            context: { subElementoMenu: elementoMenu }
+          "></ng-container>
+      </ng-container>
+    </ul>
+  </nav> -->
+
+
+  <!-- <nav class="navbar navbar-expand navbar-light bg-light fixed-top" id="header" *ngIf="tipoMenuApp === tipoMenu.header">
+    <div class="collapse navbar-collapse show">
+      <ul class="navbar-nav">
+        <ng-template #menuHeader ngFor let-elementoMenu [ngForOf]="menus">
+          <li class="nav-item" routerLinkActive="active" #rla="routerLinkActive"
+            *ngIf="!tieneSubElementos(elementoMenu); else menuHeaderConSubElementos">
+            <a class="nav-link" [routerLink]="elementoMenu.accion">
+              {{ elementoMenu.descripcion }}<span class="sr-only" *ngIf="rla.isActive">(Activo)</span>
+            </a>
+          </li>
+          <ng-template #menuHeaderConSubElementos>
+            <ng-container *ngTemplateOutlet="dropdownNav; context: { subElementoMenu: elementoMenu, isNav: true }">
+            </ng-container>
+          </ng-template>
+        </ng-template>
+      </ul>
+    </div>
+  </nav> -->
+
+  <!-- SUBITEM -->
+  <!-- ELEMENTOS ATOMICOS DEL SIDBAR -->
+  <!-- <ng-template #elementoSidebar let-elementoMenu="subElementoMenu">
+  <div>
+      <div class="list-group list-group-flus bg-light">
+        <li>
+          <a class="list-group-item-action bg-light" [routerLink]="elementoMenu.accion"
+            routerLinkActive="bg-ligth text-primary" #rla="routerLinkActive">
+            <i class="mdi mdi-{{elementoMenu.icono}}"></i> {{ elementoMenu.descripcion }}<span class="sr-only"
+              *ngIf="rla.isActive">(Activo)</span>
+          </a>
+        </li>
+      </div>
+    </div>
+  </ng-template> -->
+
+  <!-- Page Content -->
+  <main role="main">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+
+<!-- <ng-template #dropdownNav let-elementoMenu="subElementoMenu" let-isNav="isNav">
+  <li [ngClass]="{ dropdown: tue, 'dropdown-item': !isNav, 'nav-item': isNav }" ngbDropdown #myDrop="ngbDropdown"
+    [placement]="isNav ? 'bottom-right' : 'right'">
+    <a [ngClass]="{ 'dropdown-toggle': true, 'nav-link': isNav }" [id]="'menu' + elementoMenu.id" ngbDropdownToggle
+      (mouseover)="myDrop.open()">
+      {{ elementoMenu.descripcion }}
+    </a>
+    <ul class="dropdown-menu" [attr.aria-labelledby]="'menu' + elementoMenu.id" ngbDropdownMenu
+      *ngFor="let subElementoMenu of elementoMenu.subMenus">
+      <ng-container *ngTemplateOutlet="
+          tieneSubElementos(subElementoMenu) ? dropdownNav : elementoDropdown;
+          context: { subElementoMenu: subElementoMenu }
+        "></ng-container>
+    </ul>
+  </li>
+</ng-template> -->
+
+
+
+
+<!-- CABECERA DE SUBMENUS -->
+<!-- <ng-template #collapseSidebar let-elementoMenu="subElementoMenu">
+  <li>
+    <a data-toggle="collapse" (click)="collapseSidebarOpen[elementoMenu.id] = !collapseSidebarOpen[elementoMenu.id]"
+      [attr.aria-expanded]="!!collapseSidebarOpen[elementoMenu.id]" [attr.aria-controls]="'menu' + elementoMenu.id"
+      class="dropdown-toggle" [ngClass]="{ 'bg-secondary text-ligth': elementoMenu.hijoActivo }">
+      <i class="mdi mdi-{{ elementoMenu.icono }}"></i> {{ elementoMenu.descripcion }}
+    </a>
+    <ul class="collapse list-unstyled" id="'menu' + elementoMenu.id"
+      [ngbCollapse]="!collapseSidebarOpen[elementoMenu.id]" *ngFor="let subElementoMenu of elementoMenu.subMenus"
+      [ngClass]="{ 'bg-ligth text-dark': elementoMenu.hijoActivo }">
+      <ng-container *ngTemplateOutlet="
+          tieneSubElementos(subElementoMenu) ? collapseSidebar : elementoSidebar;
+          context: { subElementoMenu: subElementoMenu }
+        ">
+      </ng-container>
+    </ul>
+  </li>
+</ng-template> -->

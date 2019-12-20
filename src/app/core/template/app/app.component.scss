@@ -1,0 +1,160 @@
+app-template-app {
+  /* toolbar */
+  #toolbar a {
+    cursor: pointer;
+  }
+
+  #sidebarCollapse {
+    padding: 1.2px;
+
+    .mdi {
+      font-size: 1.9em;
+    }
+  }
+
+  #informacion-usuario .mdi {
+    font-size: 30px;
+    vertical-align: middle;
+    top: 0;
+  }
+
+  main {
+    padding-top: 4.5rem;
+  }
+
+  /*header */
+  #header {
+    display: flex;
+    top: 62px;
+    z-index: 1028;
+  }
+
+  #header ~ main {
+    padding-top: 4.5rem * 2;
+  }
+
+  /*sidebar*/
+
+  %animacion-sidebar {
+    transition: all 0.3s;
+  }
+
+  @mixin sidebar($ancho-sidebar) {
+    width: $ancho-sidebar;
+
+    & + #header {
+      left: $ancho-sidebar;
+    }
+
+    & ~ main {
+      width: calc(100% - #{$ancho-sidebar});
+    }
+
+    &.toggled {
+      margin-left: -$ancho-sidebar;
+    }
+
+    @media (max-width: 768px) {
+      margin-left: -$ancho-sidebar;
+
+      & + #header {
+        left: 0;
+      }
+
+      & ~ main {
+        width: 100%;
+      }
+
+      &.toggled {
+        margin-left: 0;
+      }
+    }
+  }
+
+  #sidebar {
+    @include sidebar(250px);
+
+    &.sidebar-mini {
+      @include sidebar(80px);
+    }
+
+    padding-top: 62px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1029;
+
+    @extend %animacion-sidebar;
+
+    & + #header {
+      @extend %animacion-sidebar;
+    }
+
+    & ~ main {
+      min-height: 100vh;
+
+      @extend %animacion-sidebar;
+
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    &.toggled {
+      & + #header {
+        left: 0;
+      }
+
+      & ~ main {
+        width: 100%;
+      }
+    }
+
+    ul ul {
+      padding-left: 15px !important;
+    }
+
+    ul li a {
+      padding: 10px;
+      font-size: 1.1em;
+      display: block;
+
+      &, &:hover, &:focus {
+        color: inherit;
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+
+      &[data-toggle="collapse"] {
+        position: relative;
+
+        &::after {
+          display: block;
+          position: absolute;
+          top: 50%;
+          right: 20px;
+          transform: translateY(-50%) rotate(270deg);
+        }
+
+        &[aria-expanded="true"]::after {
+          transform: rotate(0deg);
+        }
+      }
+    }
+
+    @media (max-width: 768px) {
+      #sidebar {
+        & + #header {
+          left: 0;
+        }
+      }
+
+      #sidebar.toggled {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+
